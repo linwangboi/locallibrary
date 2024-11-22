@@ -28,7 +28,15 @@ def index(request):
 from django.views import generic
 class BookListView(generic.ListView):
     model = Book
+    paginate_by = 4
 
 # BookDetailView
 class BookDetailView(generic.DetailView):
     model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 4
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
