@@ -127,3 +127,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Sadie added
 LOGIN_REDIRECT_URL = '/'
+
+# Sadie added
+EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
