@@ -93,7 +93,7 @@ class BookInstance(models.Model):
         ordering=['due_back']
         permissions = (('can_mark_returned', 'Set book as returned'), )
     def __str__(self):
-        return f'{self.id} ({self.book.title})'
+        return f'{self.id} ({self.book.title})'  
     @property
     def is_overdue(self):
         """Determines if the book is overdue based on due date and current date."""
