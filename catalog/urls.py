@@ -13,6 +13,8 @@ urlpatterns = [
     path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail'),
     path('genres/', views.GenreListView.as_view(), name='genres'),
     path('genre/<int:pk>', views.GenreDetailView.as_view(), name='genre-detail'),
+    path('languages/', views.LanguageListView.as_view(), name='languages'),
+    path('language/<int:pk>', views.LanguageDetailView.as_view(), name='language-detail'),
 ]
 
 urlpatterns += [
@@ -40,4 +42,10 @@ urlpatterns += [
     path('genre/create/', views.GenreCreate.as_view(), name='genre-create'),
     path('genre/<int:pk>/update/', views.GenreUpdate.as_view(), name='genre-update'),
     path('genre/<int:pk>/delete/', views.GenreDelete.as_view(), name='genre-delete'),
+]
+
+urlpatterns += [
+    path('language/create/', views.LanguageCreate.as_view(), name='language-create'),
+    path('language/<int:pk>/update/', views.LanguageUpdate.as_view(), name='language-update'),
+    path('language/<int:pk>/delete/', views.LanguageDelete.as_view(), name='language-delete'),
 ]

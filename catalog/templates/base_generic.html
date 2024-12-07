@@ -26,6 +26,7 @@
               <li><a href="{% url 'books' %}">All books</a></li>
               <li><a href="{% url 'authors' %}">All authors</a></li>
               <li><a href="{% url 'genres' %}">All genres</a></li>
+              <li><a href="{% url 'languages' %}">All languages</a></li>
               <li><a href="{% url 'my-borrowed' %}">My borrowed</a></li>
               {% if user.is_authenticated %}
               <li>User: {{ user.get_username }}</li>
@@ -50,7 +51,12 @@
                 {% if perms.catalog.add_book %}
                 <li><a href="{% url 'book-create' %}">Create book</a></li>
                 {% endif %}
+                {% if perms.catalog.add_genre %}
                 <li><a href="{% url 'genre-create' %}">Create genre</a></li>
+                {% endif %}
+                {% if perms.catalog.add_language %}
+                <li><a href="{% url 'language-create' %}">Create language</a></li>
+                {% endif %}
               </ul>
             {% endif %}
           {% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 # Sadie added
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Genre, Language
 
 def index(request):
     '''View function for home page of site.'''
@@ -52,6 +52,14 @@ class GenreListView(generic.ListView):
 
 class GenreDetailView(generic.DetailView):
     model = Genre
+
+class LanguageListView(generic.ListView):
+    model = Language
+    paginate_by = 4
+
+class LanguageDetailView(generic.DetailView):
+    model = Language
+
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -156,3 +164,18 @@ class GenreDelete(PermissionRequiredMixin, DeleteView):
     model = Genre
     success_url = reverse_lazy('genres')
     permission_required = "catalog.delete_genre"
+
+class LanguageCreate(PermissionRequiredMixin, CreateView):
+    model = Language
+    fields = ['name', ]
+    permission_required = "catalog.add_language"
+
+class LanguageUpdate(PermissionRequiredMixin, UpdateView):
+    model = Language
+    fields = ['name', ]
+    permission_required = 'catalog.change_language'
+
+class LanguageDelete(PermissionRequiredMixin, DeleteView):
+    model = Language
+    success_url = reverse_lazy('languages')
+    permission_required = 'catalog.delete_language'
