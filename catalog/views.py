@@ -50,6 +50,9 @@ class GenreListView(generic.ListView):
     model = Genre
     paginate_by = 4
 
+class GenreDetailView(generic.DetailView):
+    model = Genre
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
@@ -140,3 +143,16 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("book-delete", kwargs={"pk": self.object.pk})
             )
+
+class GenreCreate(PermissionRequiredMixin, CreateView):
+    model = Genre
+    fields = ['name', ]
+    permission_required = "catalog.add_genre"
+class GenreUpdate(PermissionRequiredMixin, UpdateView):
+    model = Genre
+    fields = ['name', ]
+    permission_required = "catalog.change_genre"
+class GenreDelete(PermissionRequiredMixin, DeleteView):
+    model = Genre
+    success_url = reverse_lazy('genres')
+    permission_required = "catalog.delete_genre"

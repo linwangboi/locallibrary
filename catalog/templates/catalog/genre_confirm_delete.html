@@ -1,0 +1,19 @@
+<!-- catalog/templates/catalog/templates/genre_confirm_delete.html -->
+
+{% block content %}
+    <h1>Delete Genre: {{ genre }}</h1>
+    {% if genre.book_set.all %}
+        <p>You can't delete this genre until all their books have been deleted:</p>
+        <ul>
+            {% for book in genre.book_set.all %}
+                <li><a href="{% url 'book-detail' book.pk %}">{{ book }}</a>({{ genre.book_set.all.count }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Are you sure you want to delete the genre?</p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" action="" value="Yes, delete.">
+        </form>
+    {% endif %}
+{% endblock %}
