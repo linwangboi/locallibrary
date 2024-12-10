@@ -101,11 +101,11 @@ def renew_book_librarian(request, pk):
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
-        context = {
-            'form': form,
-            'book_instance': book_instance,
-        }
-        return render(request, 'catalog/book_renew_librarian.html', context)
+    context = {
+        'form': form,
+        'book_instance': book_instance,
+    }
+    return render(request, 'catalog/book_renew_librarian.html', context)
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
