@@ -210,6 +210,50 @@ class AuthorCreateViewTest(TestCase):
         test_user1.save()
         test_user2.save()
 
-        ContentType = ContentType.objects.get_for_model(Book)
-        
-       
+        content_type_book = ContentType.objects.get_for_model(Book)
+        content_type_author = ContentType.objects.get_for_model(Author)
+        perm_add_book = Permission.objects.get(
+            codename='add_book',
+            content_type=content_type_book,
+        )
+        perm_add_author = Permission.objects.get(
+            codename='add_author',
+            content_type=content_type_author,
+        )
+        test_user2.user_permissions.add(perm_add_author, perm_add_book)
+        test_user2.save()
+        test_author = Author.objects.create(first_name="John", last_name="Smith")
+    def test_redirects_not_logged_in(self):
+        response = self.client.get(reverse('author-create'))
+        self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/')
+
+    def test_forbidden_if_logged_in_but_not_correct_permission(self):
+        login = self.client.login(
+            username='testuser1', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 403)
+    def test_logged_in_with_permission(self):
+        login = self.client.login(
+            username='testuser2', password='2HJ1vRV0Z&3iD')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 200)
+    def test_uses_correct_template(self):
+        login = self.client.login(
+            username='testuser2', password='2HJ1vRV0Z&3iD')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/author_form.html')
+    def test_initial_expected_date_of_death(self):
+        login = self.client.login(
+            username='testuser2', password='2HJ1vRV0Z&3iD')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 200)
+        expected_initial_date = '11/11/2023'
+        response_date = response.context['form'].initial['date_of_death']
+        self.assertEqual(response_date, expected_initial_date)
+    def test_redirects_to_detail_view_success(self):
+        login = self.client.login(
+            username='testuser2', password='2HJ1vRV0Z&3iD')
+        response = self.client.post(reverse('author-create'), {'first_name': "firstrandom", 'last_name': 'Lastrandom'})
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/catalog/author/'))
