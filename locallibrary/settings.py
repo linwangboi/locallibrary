@@ -32,10 +32,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "django-insecure-9&ruj_#8!nr5i3
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.pythonanywhere.com', '127.0.0.1']
 
 # Sadie added
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://*.pythonanywhere.com']
 
 # Application definition
 
