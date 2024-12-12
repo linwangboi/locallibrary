@@ -1,0 +1,65 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+localenv/
+
+# Django static and media files
+media/
+
+# SQLite database
+*.sqlite3
+
+# Django secret key
+*.env
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.bak
+*.swp
+*.tmp
+*.temp
+
+# macOS specific
+.DS_Store
+
+# Coverage reports
+htmlcov/
+*.cover
+.coverage
+*.lcov
+coverage.xml
+
+# Testing reports
+.tox/
+.nox/
+.cache/
+pytest_cache/
+*.cover
+
+# Deployment
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+*.egg
+*.manifest
+
+# IDE specific
+.idea/
+.vscode/
+*.iml
+
+# Node.js dependencies (if applicable)
+node_modules/
+
+# Compiled CSS and JS
+*.css.map
+*.js.map
